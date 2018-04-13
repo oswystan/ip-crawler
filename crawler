@@ -29,7 +29,11 @@ function crawle(addr) {
         }
         let rst = JSON.parse(body);
         if (rst.code === 0) {
-            console.log(rst.data.ip, rst.data.country, rst.data.region, rst.data.isp);
+            let record = "";
+            for (let attr in rst.data) {
+                record = record + rst.data[attr] + "|";
+            }
+            console.log(record);
             trigger();
         } else {
             console.error("fail");
@@ -38,15 +42,15 @@ function crawle(addr) {
 }
 
 function get_next() {
-    if (c >= 10) {
+    if (c >= 255) {
         b++;
         c = d = 1;
     }
-    if (b >= 10) {
+    if (b >= 255) {
         a++;
         b = c = d = 1;
     }
-    if (a >= 10) {
+    if (a >= 255) {
         return null;
     }
     return a + "." + b + "." + c++ + "." + d;
