@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+/*
+ *********************************************************************************
+ *                     Copyright (C) 2018 wystan
+ *
+ *       filename: crawler.js
+ *    description:
+ *        created: 2018-04-13 20:04:23
+ *         author: wystan
+ *
+ *********************************************************************************
+ */
+
+const request = require("request");
+const emitter = require("./emitter");
+
+let url="http://ip.taobao.com/service/getIpInfo.php?ip=";
+let emit = emitter();
+let a = 1;
+let b = 1;
+let c = 1;
+let d = 1;
+
+function crawle(addr) {
+    request(url+addr, (err, res, body)=>{
+        if (err != null) {
+            console.log("error:", err);
+            return;
+        }
+        let rst = JSON.parse(body);
+        if (rst.code === 0) {
+            console.log(rst.data.ip, rst.data.country, rst.data.region, rst.data.isp);
+            trigger();
+        } else {
+            console.error("fail");
+        }
+    });
+}
+
+function get_next() {
+    if (c >= 10) {
+        b++;
+        c = d = 1;
+    }
+    if (b >= 10) {
+        a++;
+        b = c = d = 1;
+    }
+    if (a >= 10) {
+        return null;
+    }
+    return a + "." + b + "." + c++ + "." + d;
+}
+
+function trigger() {
+    let next = get_next();
+    if (next) {
+        emit.aemit("crawle", next);
+    }
+}
+
+function main() {
+    emit.on("crawle", crawle.bind(null));
+    trigger();
+}
+
+/************************************* END **************************************/
+main();
