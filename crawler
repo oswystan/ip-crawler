@@ -13,7 +13,7 @@
 
 const request = require("request");
 const emitter = require("./emitter");
-const maxconn = 10;
+const maxconn = 700;
 
 let url="http://ip.taobao.com/service/getIpInfo.php?ip=";
 let emit = emitter();
