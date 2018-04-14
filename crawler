@@ -31,7 +31,14 @@ function crawle(addr) {
             emit.aemit("crawle", addr);
             return;
         }
-        let rst = JSON.parse(body);
+        let rst = null;
+        try {
+            rst = JSON.parse(body);
+        } catch(e) {
+            console.error("parse error on:", addr);
+            emit.aemit("crawle", addr);
+            return;
+        }
         if (rst.code === 0) {
             let record = "";
             for (let attr in rst.data) {
