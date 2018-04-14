@@ -9,5 +9,6 @@ a simple nodejs script used for grabing ip location from http://ip.taobao.com
 ## DO **NOT** need to care about error, it will retry the 
 ## same addr when error occurred
 
+$ npm install
 $ ./crawler > ip.txt 2>err.txt
 ```
