@@ -1,2 +1,13 @@
-# ip-crawler
-grab IP location from taobao
+## introduction
+
+a simple nodejs script used for grabing ip location from http://ip.taobao.com
+
+## usage
+
+```
+## save ip information into ip.txt and errors into err.txt
+## DO **NOT** need to care about error, it will retry the 
+## same addr when error occurred
+
+$ ./crawler > ip.txt 2>err.txt
+```
