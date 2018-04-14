@@ -17,6 +17,7 @@ const maxconn = 10;
 
 let url="http://ip.taobao.com/service/getIpInfo.php?ip=";
 let emit = emitter();
+let first = 1;
 let a = 1;
 let b = 1;
 let c = 1;
@@ -35,6 +36,14 @@ function crawle(addr) {
             let record = "";
             for (let attr in rst.data) {
                 record = record + rst.data[attr] + "|";
+            }
+            if (first) {
+                first = 0;
+                let header = "";
+                for (let attr in rst.data) {
+                    header = header + attr + "|";
+                }
+                console.log(header);
             }
             console.log(record);
             trigger();
