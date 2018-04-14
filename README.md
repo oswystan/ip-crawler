@@ -10,5 +10,5 @@ a simple nodejs script used for grabing ip location from http://ip.taobao.com
 ## same addr when error occurred
 
 $ npm install
-$ ./crawler > ip.txt 2>err.txt
+$ ./crawler > ip.txt 2>/dev/null
 ```
